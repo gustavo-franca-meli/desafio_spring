@@ -1,0 +1,46 @@
+[
+  {
+    "id": "98ca3ffc-d850-4f2d-9b30-7ee420e89a13",
+    "name": "Pedro",
+    "followers": [],
+    "following": [
+      "663a631d-3fa2-4fb2-9ca2-cf01874b3e9a",
+      "175740d9-9214-42c3-9ff9-3452944eee9c"
+    ]
+  },
+  {
+    "id": "663a631d-3fa2-4fb2-9ca2-cf01874b3e9a",
+    "name": "Antonio",
+    "followers": [
+      "98ca3ffc-d850-4f2d-9b30-7ee420e89a13"
+    ],
+    "following": [
+      "175740d9-9214-42c3-9ff9-3452944eee9c"
+    ]
+  },
+  {
+    "id": "175740d9-9214-42c3-9ff9-3452944eee9c",
+    "name": "Ana",
+    "followers": [
+      "98ca3ffc-d850-4f2d-9b30-7ee420e89a13",
+      "663a631d-3fa2-4fb2-9ca2-cf01874b3e9a"
+    ],
+    "following": []
+  },
+  {
+    "id": "60bdda59-5460-439e-a500-6c2dd0183358",
+    "name": "Sergio",
+    "followers": [],
+    "following": [
+      "2ad3e5ce-d33e-4100-ad12-434667745aff"
+    ]
+  },
+  {
+    "id": "2ad3e5ce-d33e-4100-ad12-434667745aff",
+    "name": "Jorge",
+    "followers": [
+      "60bdda59-5460-439e-a500-6c2dd0183358"
+    ],
+    "following": []
+  }
+]

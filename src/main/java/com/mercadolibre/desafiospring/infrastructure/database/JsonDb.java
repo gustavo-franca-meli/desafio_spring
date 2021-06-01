@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,33 +23,43 @@ public class JsonDb<T> {
     private ObjectMapper mapper;
     private TypeReference<List<T>> typeRef;
 
-    public JsonDb(String resourcesPath) throws IOException {
-        OpenOrCreateAndOpenFile(resourcesPath);
-        this.resourcesPath = resourcesPath;
+    public JsonDb(String resourcesPath, TypeReference<List<T>> type) throws IOException {
         this.mapper = new ObjectMapper().registerModule(new JavaTimeModule());
         this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
-        this.typeRef =  new TypeReference<>() {};
+        this.typeRef = type;
+        OpenOrCreateAndOpenFile(resourcesPath);
+        this.resourcesPath = resourcesPath;
+
     }
 
     private void OpenOrCreateAndOpenFile(String resourcesPath) throws IOException {
         var fullResourcePath = "file:src/main/resources/"+resourcesPath+".json";
         try{
             this.file = ResourceUtils.getFile(fullResourcePath);
+            if (!this.file.exists())createFile();
         } catch (FileNotFoundException e) {
             this.file = new File(ResourceUtils.getURL(fullResourcePath).getPath());
-              file.createNewFile();
+            createFile();
         }
+
+    }
+
+    private void createFile() throws IOException {
+
+            this.file.createNewFile();
+            update(new ArrayList<T>());
 
     }
 
 
     public List<T> retrieve() throws Exception {
         try {
-            return mapper.readValue(file,typeRef);
+            return mapper.<List<T>>readValue(file,typeRef);
         } catch (IOException e) {
             try {
                 return mapper.readValue(file,typeRef);
             } catch (IOException ioException) {
+                ioException.printStackTrace();
                 throw new Exception("database unavailable");
             }
         }

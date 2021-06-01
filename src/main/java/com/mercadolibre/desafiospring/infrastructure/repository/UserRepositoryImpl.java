@@ -5,14 +5,19 @@ import com.mercadolibre.desafiospring.infrastructure.UserRepository;
 import com.mercadolibre.desafiospring.infrastructure.database.JsonDb;
 import com.mercadolibre.desafiospring.infrastructure.entity.UserData;
 import com.mercadolibre.desafiospring.infrastructure.mapper.UserMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.stereotype.Repository;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Repository
 public class UserRepositoryImpl extends JsonDb<UserData> implements UserRepository {
+    private static  TypeReference<List<UserData>> typeRef = new TypeReference<>(){};
     public UserRepositoryImpl() throws Exception {
-        super("user");
+        super("user",typeRef);
+
+
     }
 
     @Override
@@ -24,6 +29,19 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
     }
 
     @Override
+    public User find(User user) {
+        try {
+            var users = this.retrieve();
+            return UserMapper.toModel(users.stream().filter(u -> u.getId().equals(user.getId())).findFirst().get());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    @Override
     public Boolean follow(User user, User UserToFollow) {
         return null;
     }
@@ -31,11 +49,45 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
     @Override
     public Boolean save(User user) throws Exception {
         var users = this.retrieve();
-        var userData  = users.stream().filter(u -> u.getId() == user.getId()).findFirst();
-        if(userData.isEmpty())users.add(UserMapper.toData(user));
+        var data = UserMapper.toData(user);
+        users.removeIf(userData -> userData.getId().equals(data.getId()));
+        users.add(data);
+        this.update(users);
+        return true;
+    }
 
-        UserMapper.toData(user);
+    @Override
+    public List<User> findAllFollowers(User user) throws Exception {
+        var users = this.retrieve();
 
+         return users.stream()
+                .filter(
+                        u -> user.getFollowers()
+                                        .stream().anyMatch(
+                                                follower ->   follower.getId().equals(u.getId()
+                                                        )
+                                )
+                )
+                .map(UserMapper::toModel)
+                 .collect(Collectors.toList());
+
+
+    }
+
+    @Override
+    public List<User> findAllFollowing(User user) throws Exception {
+        var users = this.retrieve();
+
+        return users.stream()
+                .filter(
+                        u -> user.getFollowing()
+                                .stream().anyMatch(
+                                        followed ->   followed.getId().equals(u.getId()
+                                        )
+                                )
+                )
+                .map(UserMapper::toModel)
+                .collect(Collectors.toList());
 
     }
 }
