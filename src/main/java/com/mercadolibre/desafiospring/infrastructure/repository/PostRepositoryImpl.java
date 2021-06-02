@@ -9,6 +9,7 @@ import com.mercadolibre.desafiospring.infrastructure.mapper.PostMapper;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -24,8 +25,9 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
             var posts = this.retrieve();
             var PostAlreadyExist = posts.stream().anyMatch(p -> p.getId().equals(post.getId()));
             if(PostAlreadyExist)return false;
-
-            posts.add(PostMapper.toData(post));
+            var postData = PostMapper.toData(post);
+            postData.setPostedAt(LocalDateTime.now());
+            posts.add(postData);
             this.update(posts);
             return true;
         } catch (Exception e) {

@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class CreatePostRequest {
-    public  UUID userId;
-    public  UUID idPost;
-    public LocalDate date;
+    public  String userId;
+    public  String idPost;
     public ProductRequest detail;
     public Integer category;
     public Double price;
@@ -14,10 +13,9 @@ public class CreatePostRequest {
     public CreatePostRequest() {
     }
 
-    public CreatePostRequest(UUID userId, UUID idPost, LocalDate date, ProductRequest detail, Integer category, Double price) {
+    public CreatePostRequest(String userId, String idPost, ProductRequest detail, Integer category, Double price) {
         this.userId = userId;
         this.idPost = idPost;
-        this.date = date;
         this.detail = detail;
         this.category = category;
         this.price = price;
