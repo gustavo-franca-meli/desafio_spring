@@ -12,9 +12,26 @@ public class UserData {
     private String name;
     private List<UUID> followers = new ArrayList<>();
     private List<UUID> following = new ArrayList<>();
+    private Boolean isSeller = false;
+
+    public void setSeller(Boolean seller) {
+        isSeller = seller;
+    }
+
+    public Boolean getSeller() {
+        return isSeller;
+    }
 
     public UserData() {
 
+    }
+
+    public UserData(UUID id, String name, List<UUID> uuidFollowers, List<UUID> uuidFollowing, Boolean isSeller) {
+        this.id = id;
+        this.name = name;
+        this.followers = uuidFollowers;
+        this.following = uuidFollowing;
+        this.isSeller = isSeller;
     }
 
     public void setId(UUID id) {

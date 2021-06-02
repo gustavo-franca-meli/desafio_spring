@@ -45,11 +45,20 @@
     "seller": false
   },
   {
+    "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+    "name": "seller3",
+    "followers": [
+      "ed25f504-569f-4300-944b-e19484f55f28"
+    ],
+    "following": [],
+    "seller": true
+  },
+  {
     "id": "d313bf73-cc50-403e-a63c-ccb7a0ffc7a7",
     "name": "user4",
     "followers": [],
     "following": [
-      "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b"
+
     ],
     "seller": false
   },
@@ -57,19 +66,7 @@
     "id": "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
     "name": "seller4",
     "followers": [
-      "d313bf73-cc50-403e-a63c-ccb7a0ffc7a7"
-    ],
-    "following": [
-      "b4c40a44-3c57-465d-b173-2f70665b35ee"
-    ],
-    "seller": false
-  },
-  {
-    "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
-    "name": "seller3",
-    "followers": [
-      "ed25f504-569f-4300-944b-e19484f55f28",
-      "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b"
+
     ],
     "following": [],
     "seller": true

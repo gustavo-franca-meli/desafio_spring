@@ -1,5 +1,6 @@
 package com.mercadolibre.desafiospring.infrastructure.repository;
 
+import com.mercadolibre.desafiospring.domain.Seller;
 import com.mercadolibre.desafiospring.domain.User;
 import com.mercadolibre.desafiospring.infrastructure.UserRepository;
 import com.mercadolibre.desafiospring.infrastructure.database.JsonDb;
@@ -41,35 +42,36 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
 
     }
 
-    @Override
-    public Boolean follow(User user, User UserToFollow) {
-        return null;
-    }
 
     @Override
     public Boolean save(User user) throws Exception {
         var users = this.retrieve();
         var data = UserMapper.toData(user);
-        users.removeIf(userData -> userData.getId().equals(data.getId()));
+        var userDataDBOp = users.stream().filter(userData -> userData.getId().equals(data.getId())).findFirst();
+        if(userDataDBOp.isPresent()){
+            var userData = userDataDBOp.get();
+            data.setFollowers(userData.getFollowers());
+            users.remove(userData);
+        }
         users.add(data);
         this.update(users);
         return true;
     }
 
     @Override
-    public List<User> findAllFollowers(User user) throws Exception {
+    public List<User> findAllFollowers(Seller seller) throws Exception {
         var users = this.retrieve();
 
-         return users.stream()
+        return users.stream()
                 .filter(
-                        u -> user.getFollowers()
-                                        .stream().anyMatch(
-                                                follower ->   follower.getId().equals(u.getId()
-                                                        )
+                        u -> seller.getFollowers()
+                                .stream().anyMatch(
+                                        follower ->   follower.getId().equals(u.getId()
+                                        )
                                 )
                 )
                 .map(UserMapper::toModel)
-                 .collect(Collectors.toList());
+                .collect(Collectors.toList());
 
 
     }
