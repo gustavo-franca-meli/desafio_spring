@@ -14,6 +14,9 @@ public class PostData {
     private Integer category;
     private Double price;
 
+    public PostData() {
+    }
+
     public UUID getId() {
         return id;
     }

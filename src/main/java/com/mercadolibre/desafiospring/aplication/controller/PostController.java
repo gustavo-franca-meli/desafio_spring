@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.ResponseEntity.*;
+
 @RestController
 @RequestMapping("/products/")
 public class PostController {
@@ -21,11 +23,12 @@ public class PostController {
     public ResponseEntity<Void> createPost(@RequestBody CreatePostRequest post){
 
         postUseCase.create(post);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return status(HttpStatus.CREATED).build();
     }
-    @PostMapping("/followed/{userId}/list")
+    @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostsResponse> listFollowedPost(@PathVariable String userId) throws UserNotFound {
-        return ResponseEntity.status(HttpStatus.OK).body(postUseCase.listFollowedBy(userId));
+        var response = postUseCase.listFollowedBy(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

@@ -13,6 +13,7 @@ import com.mercadolibre.desafiospring.infrastructure.SellerRepository;
 import com.mercadolibre.desafiospring.infrastructure.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Service

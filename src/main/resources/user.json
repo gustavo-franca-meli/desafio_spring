@@ -1,14 +1,5 @@
 [
   {
-    "id": "3aa1cbf6-89ea-4c4b-9a3b-fcff490bc9b6",
-    "name": "user1",
-    "followers": [],
-    "following": [
-      "2c8efdf8-ea86-44da-93b7-0a1e4486794d"
-    ],
-    "seller": false
-  },
-  {
     "id": "2c8efdf8-ea86-44da-93b7-0a1e4486794d",
     "name": "seller1",
     "followers": [
@@ -53,7 +44,7 @@
     "following": [
       "b4c40a44-3c57-465d-b173-2f70665b35ee"
     ],
-    "seller": false
+    "seller": true
   },
   {
     "id": "d313bf73-cc50-403e-a63c-ccb7a0ffc7a7",
@@ -66,12 +57,23 @@
     "seller": false
   },
   {
+    "id": "3aa1cbf6-89ea-4c4b-9a3b-fcff490bc9b6",
+    "name": "user1",
+    "followers": [],
+    "following": [
+      "2c8efdf8-ea86-44da-93b7-0a1e4486794d",
+      "b4c40a44-3c57-465d-b173-2f70665b35ee"
+    ],
+    "seller": false
+  },
+  {
     "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
     "name": "seller3",
     "followers": [
       "ed25f504-569f-4300-944b-e19484f55f28",
       "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
-      "d313bf73-cc50-403e-a63c-ccb7a0ffc7a7"
+      "d313bf73-cc50-403e-a63c-ccb7a0ffc7a7",
+      "3aa1cbf6-89ea-4c4b-9a3b-fcff490bc9b6"
     ],
     "following": [],
     "seller": true

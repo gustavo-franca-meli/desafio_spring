@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class PostsResponse {
-    UUID userId;
-    List<PostResponse> posts;
+    public UUID userId;
+    public List<PostResponse> posts;
 
     public PostsResponse() {
     }

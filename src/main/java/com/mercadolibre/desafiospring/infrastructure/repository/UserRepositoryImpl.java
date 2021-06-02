@@ -9,6 +9,7 @@ import com.mercadolibre.desafiospring.infrastructure.mapper.UserMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,7 +65,7 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
 
         return users.stream()
                 .filter(
-                        u -> seller.getFollowers()
+                        u ->  seller.getFollowers()
                                 .stream().anyMatch(
                                         follower ->   follower.getId().equals(u.getId()
                                         )
