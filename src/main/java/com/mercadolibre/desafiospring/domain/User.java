@@ -9,14 +9,12 @@ import java.util.UUID;
 public class User {
     private UUID id;
     private String name;
-    private List<User> followers = new ArrayList<>();
-    private List<User> following = new ArrayList<>();
+    private List<Seller> following = new ArrayList<>();
 
 
-    public User(UUID id, String name, List<User> followers, List<User> following) {
+    public User(UUID id, String name, List<Seller> following) {
         this.id = id;
         this.name = name;
-        this.followers = followers;
         this.following = following;
     }
 
@@ -28,11 +26,7 @@ public class User {
         return name;
     }
 
-    public List<User> getFollowers() {
-        return followers;
-    }
-
-    public List<User> getFollowing() {
+    public List<Seller> getFollowing() {
         return following;
     }
 
@@ -45,36 +39,25 @@ public class User {
         this.name = name;
     }
 
-    public Boolean follow(User userToFollow) {
-        try{
-            var isFollowing = this.following.stream().anyMatch(u ->u.getId().equals(userToFollow.getId()));
-            if(isFollowing)return false;
-            if(!userToFollow.addFollower(this))return false;
-            following.add(userToFollow);
+    public Boolean follow(Seller sellerToFollow) {
+        try {
+            if(sellerToFollow.getId().equals(this.getId()))return false;
+            var isFollowing = this.following.stream().anyMatch(u -> u.getId().equals(sellerToFollow.getId()));
+            if (isFollowing) return false;
+            if (!sellerToFollow.addFollower(this)) return false;
+            following.add(sellerToFollow);
             return true;
-        }catch (Exception  e){
-            userToFollow.removeFollower(this);
-            unFollow(userToFollow);
-            return  false;
+        } catch (Exception e) {
+            sellerToFollow.removeFollower(this);
+            unFollow(sellerToFollow);
+            return false;
         }
     }
 
-    private void unFollow(User userToUnFollow) {
+    public void unFollow(Seller userToUnFollow) {
         this.following.remove(userToUnFollow);
     }
 
-    private void removeFollower(User user) {
-        this.followers.remove(user);
-    }
-
-    public Boolean addFollower(User user) {
-        var isAFollower = this.followers.stream().anyMatch(u ->u.getId().equals(user.getId()));
-        if(isAFollower)return false;
-        this.followers.add(user);
-        return true;
-    }
-
-    public Integer followersCount() {
-        return this.followers.size();
-    }
 }
+
+
