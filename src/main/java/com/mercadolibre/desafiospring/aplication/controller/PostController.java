@@ -17,6 +17,7 @@ public class PostController {
 
     @PostMapping("/newpost/")
     public ResponseEntity<Void> createPost(@RequestBody CreatePostRequest post){
+
         postUseCase.create(post);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
