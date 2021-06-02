@@ -10,6 +10,7 @@ public class CreatePostRequest {
     public Integer category;
     public Double price;
 
+
     public CreatePostRequest() {
     }
 
