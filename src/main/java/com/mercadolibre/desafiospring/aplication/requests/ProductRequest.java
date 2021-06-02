@@ -3,7 +3,7 @@ package com.mercadolibre.desafiospring.aplication.requests;
 import java.util.UUID;
 
 public class ProductRequest {
-    public UUID productId;
+    public String productId;
     public String productName;
     public String type;
     public String brand;
@@ -13,7 +13,7 @@ public class ProductRequest {
     public ProductRequest() {
     }
 
-    public ProductRequest(UUID productId, String productName, String type, String brand, String color, String notes) {
+    public ProductRequest(String productId, String productName, String type, String brand, String color, String notes) {
         this.productId = productId;
         this.productName = productName;
         this.type = type;
