@@ -3,15 +3,19 @@ package com.mercadolibre.desafiospring.infrastructure.entity;
 import com.mercadolibre.desafiospring.domain.Product;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class PostData {
     private UUID id;
     private UUID userId;
-    private LocalDate date;
+    private LocalDateTime postedAt;
     private ProductData product;
     private Integer category;
     private Double price;
+
+    public PostData() {
+    }
 
     public UUID getId() {
         return id;
@@ -29,12 +33,12 @@ public class PostData {
         this.userId = userId;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getPostedAt() {
+        return postedAt;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setPostedAt(LocalDateTime postedAt) {
+        this.postedAt = postedAt;
     }
 
     public ProductData getProduct() {
@@ -61,13 +65,10 @@ public class PostData {
         this.price = price;
     }
 
-    public PostData() {
-    }
-
-    public PostData(UUID id, UUID userId, LocalDate date, ProductData product, Integer category, Double price) {
+    public PostData(UUID id, UUID userId, LocalDateTime postedAt, ProductData product, Integer category, Double price) {
         this.id = id;
         this.userId = userId;
-        this.date = date;
+        this.postedAt = postedAt;
         this.product = product;
         this.category = category;
         this.price = price;

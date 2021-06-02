@@ -2,6 +2,7 @@ package com.mercadolibre.desafiospring.infrastructure.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.mercadolibre.desafiospring.domain.Post;
+import com.mercadolibre.desafiospring.domain.User;
 import com.mercadolibre.desafiospring.infrastructure.PostRepository;
 import com.mercadolibre.desafiospring.infrastructure.database.JsonDb;
 import com.mercadolibre.desafiospring.infrastructure.entity.PostData;
@@ -9,7 +10,11 @@ import com.mercadolibre.desafiospring.infrastructure.mapper.PostMapper;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepositoryImpl extends JsonDb<PostData> implements PostRepository  {
@@ -24,13 +29,40 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
             var posts = this.retrieve();
             var PostAlreadyExist = posts.stream().anyMatch(p -> p.getId().equals(post.getId()));
             if(PostAlreadyExist)return false;
-
-            posts.add(PostMapper.toData(post));
+            var postData = PostMapper.toData(post);
+            postData.setPostedAt(LocalDateTime.now());
+            posts.add(postData);
             this.update(posts);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Post> listFollowedBy(User user) {
+        try {
+            var posts = this.retrieve();
+            var followingSellerList = user.getFollowing();
+            var maxDate = LocalDateTime.now().plusWeeks(-2);
+
+
+            var postsFollowed = posts.stream().filter(p -> p.getPostedAt().compareTo(maxDate) > -1 && followingSellerList.stream()
+                    .anyMatch(
+                            s -> s.getId().equals(p.getUserId()
+                            )
+                    )
+            ).collect(Collectors.toList());
+
+            return postsFollowed.stream().sorted(Comparator.comparing(PostData::getPostedAt, Collections.reverseOrder()))
+                    .map(PostMapper::toModel)
+                    .collect(Collectors.toList());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }
