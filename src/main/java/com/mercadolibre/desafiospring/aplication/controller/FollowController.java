@@ -1,5 +1,6 @@
 package com.mercadolibre.desafiospring.aplication.controller;
 
+import com.mercadolibre.desafiospring.aplication.requests.OrderQuery;
 import com.mercadolibre.desafiospring.aplication.response.FollowersCountResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowersListResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowingListResponse;
@@ -11,6 +12,9 @@ import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users/{userId}/")
@@ -33,13 +37,24 @@ public class FollowController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @GetMapping("/followed/list")
-    public ResponseEntity<FollowingListResponse> followedList(@PathVariable String userId) throws Exception, UserIsAlreadyFollowingException {
-        var response = userUseCase.followingList(userId);
+    public ResponseEntity<FollowingListResponse> followedList(@PathVariable String userId, @RequestParam("order") Optional<OrderQuery> order) throws Exception, UserIsAlreadyFollowingException {
+        FollowingListResponse response = null;
+        if(order.isPresent()){
+            response =  userUseCase.followingList(userId,order.get());
+        }else{
+            response =  userUseCase.followingList(userId);
+        }
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @GetMapping("/followers/list")
-    public ResponseEntity<FollowersListResponse> followersList(@PathVariable String userId) throws Exception, UserIsAlreadyFollowingException {
-        var response = userUseCase.followersList(userId);
+    public ResponseEntity<FollowersListResponse> followersListWithOrder(@PathVariable String userId , @RequestParam("order") Optional<OrderQuery> order) throws Exception, UserIsAlreadyFollowingException {
+        FollowersListResponse response = null;
+        if(order.isPresent()){
+            response = userUseCase.followersList(userId,order.get());
+        }else{
+            response = userUseCase.followersList(userId);
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     @PostMapping("/unfollow/{userIdToUnfollow}")
