@@ -1,16 +1,21 @@
 package com.mercadolibre.desafiospring.infrastructure.repository;
 
+import com.mercadolibre.desafiospring.aplication.requests.OrderQuery;
 import com.mercadolibre.desafiospring.domain.Seller;
 import com.mercadolibre.desafiospring.domain.User;
 import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
 import com.mercadolibre.desafiospring.infrastructure.UserRepository;
 import com.mercadolibre.desafiospring.infrastructure.database.JsonDb;
+import com.mercadolibre.desafiospring.infrastructure.entity.PostData;
 import com.mercadolibre.desafiospring.infrastructure.entity.UserData;
+import com.mercadolibre.desafiospring.infrastructure.mapper.PostMapper;
 import com.mercadolibre.desafiospring.infrastructure.mapper.UserMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,6 +84,13 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
     }
 
     @Override
+    public List<User> findAllFollowers(Seller seller, OrderQuery orderQuery) throws RepositoryNotAvailable {
+       var followers =  this.findAllFollowers(seller);
+        return followers.stream().sorted(Comparator.comparing(User::getName,orderQuery.equals(OrderQuery.name_desc)? Comparator.reverseOrder():Comparator.naturalOrder()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<User> findAllFollowing(User user) throws RepositoryNotAvailable {
         var users = this.retrieve();
 
@@ -93,5 +105,11 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
                 .map(UserMapper::toModel)
                 .collect(Collectors.toList());
 
+    }
+    @Override
+    public List<User> findAllFollowing(User user, OrderQuery orderQuery) throws RepositoryNotAvailable {
+        var followers =  this.findAllFollowing(user);
+        return followers.stream().sorted(Comparator.comparing(User::getName,orderQuery.equals(OrderQuery.name_desc)? Comparator.reverseOrder():Comparator.naturalOrder()))
+                .collect(Collectors.toList());
     }
 }

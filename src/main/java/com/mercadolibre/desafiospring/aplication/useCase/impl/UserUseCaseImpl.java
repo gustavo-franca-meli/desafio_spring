@@ -1,5 +1,6 @@
 package com.mercadolibre.desafiospring.aplication.useCase.impl;
 
+import com.mercadolibre.desafiospring.aplication.requests.OrderQuery;
 import com.mercadolibre.desafiospring.aplication.response.UserResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowersCountResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowersListResponse;
@@ -61,6 +62,31 @@ public class UserUseCaseImpl implements UserUseCase {
 
         return new FollowersListResponse(seller.getId(),seller.getName(),followerOfUserResponse);
     }
+
+    @Override
+    public FollowersListResponse followersList(String userId, OrderQuery orderQuery) throws Exception {
+        var seller = sellerRepository.find(SellerFactory.create(userId));
+        if(seller == null)throw new UserNotFound(userId);
+
+        var followersOfUser = userRepository.findAllFollowers(seller,orderQuery);
+
+        var followerOfUserResponse = followersOfUser.stream().map(UserResponse::new).collect(Collectors.toList());
+
+        return new FollowersListResponse(seller.getId(),seller.getName(),followerOfUserResponse);
+    }
+
+    @Override
+    public FollowingListResponse followingList(String userId, OrderQuery orderQuery) throws Exception {
+        var user = userRepository.find(UserFactory.create(userId));
+        if(user == null)throw new UserNotFound(userId);
+
+        var followersOfUser = userRepository.findAllFollowing(user,orderQuery);
+
+        var followerOfUserResponse = followersOfUser.stream().map(UserResponse::new).collect(Collectors.toList());
+
+        return new FollowingListResponse(user.getId(),user.getName(),followerOfUserResponse);
+    }
+
     @Override
     public FollowingListResponse followingList(String userId) throws Exception {
         var user = userRepository.find(UserFactory.create(userId));
@@ -86,5 +112,7 @@ public class UserUseCaseImpl implements UserUseCase {
         userRepository.save(user);
         sellerRepository.save(sellerToUnfollow);
     }
+
+
 }
 
