@@ -1,6 +1,7 @@
 package com.mercadolibre.desafiospring.infrastructure.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.domain.Post;
 import com.mercadolibre.desafiospring.domain.User;
 import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
@@ -10,16 +11,16 @@ import com.mercadolibre.desafiospring.infrastructure.entity.PostData;
 import com.mercadolibre.desafiospring.infrastructure.mapper.PostMapper;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
 public class PostRepositoryImpl extends JsonDb<PostData> implements PostRepository  {
-    private static  TypeReference<List<PostData>> typeRef = new TypeReference<>(){};
+    private static  final TypeReference<List<PostData>> typeRef = new TypeReference<>(){};
     public PostRepositoryImpl() throws RepositoryNotAvailable {
         super("posts", typeRef);
     }
@@ -42,7 +43,7 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
     }
 
     @Override
-    public List<Post> listFollowedBy(User user) {
+    public List<Post> listFollowedBy(User user,Optional<OrderPost> order) {
         try {
             var posts = this.retrieve();
             var followingSellerList = user.getFollowing();
@@ -55,7 +56,7 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
                             )
                     )
             ).collect(Collectors.toList());
-            return postsFollowed.stream().sorted(Comparator.comparing(PostData::getPostedAt, Collections.reverseOrder()))
+            return postsFollowed.stream().sorted(Comparator.comparing(PostData::getPostedAt,order.isPresent() && order.get().equals(OrderPost.date_desc)?Comparator.naturalOrder():Collections.reverseOrder()))
                     .map(PostMapper::toModel)
                     .collect(Collectors.toList());
 
