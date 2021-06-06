@@ -5,8 +5,11 @@ import com.mercadolibre.desafiospring.aplication.response.FollowersCountResponse
 import com.mercadolibre.desafiospring.aplication.response.FollowersListResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowingListResponse;
 import com.mercadolibre.desafiospring.domain.Seller;
+import com.mercadolibre.desafiospring.domain.User;
+import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
 import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyFollowingException;
 import com.mercadolibre.desafiospring.aplication.useCase.UserUseCase;
+import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyUnfollowingException;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import com.mercadolibre.desafiospring.domain.factories.SellerFactory;
 import com.mercadolibre.desafiospring.domain.factories.UserFactory;
@@ -68,6 +71,20 @@ public class UserUseCaseImpl implements UserUseCase {
         var followerOfUserResponse = followersOfUser.stream().map(UserResponse::new).collect(Collectors.toList());
 
         return new FollowingListResponse(user.getId(),user.getName(),followerOfUserResponse);
+    }
+
+    @Override
+    public void unfollow(String userId, String userIdToUnfollow) throws UserNotFound, UserIsAlreadyUnfollowingException, IllegalArgumentException, RepositoryNotAvailable {
+        var user = userRepository.find(UserFactory.create(userId));
+        var sellerToUnfollow = sellerRepository.find(SellerFactory.create(userIdToUnfollow));
+
+        if(user == null)throw new UserNotFound("User does not exist");
+        if(sellerToUnfollow == null)throw  new UserNotFound("following seller does not exist");
+
+
+        if(!user.unfollow(sellerToUnfollow))throw new UserIsAlreadyUnfollowingException(user, sellerToUnfollow);
+        userRepository.save(user);
+        sellerRepository.save(sellerToUnfollow);
     }
 }
 

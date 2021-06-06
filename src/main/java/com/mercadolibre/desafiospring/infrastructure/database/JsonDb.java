@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.PathResource;
 import org.springframework.util.ResourceUtils;
@@ -23,7 +25,7 @@ public class JsonDb<T> {
     private ObjectMapper mapper;
     private TypeReference<List<T>> typeRef;
 
-    public JsonDb(String resourcesPath, TypeReference<List<T>> type) throws IOException {
+    public JsonDb(String resourcesPath, TypeReference<List<T>> type) throws RepositoryNotAvailable {
         this.mapper = new ObjectMapper().registerModule(new JavaTimeModule());
         this.mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
         this.typeRef = type;
@@ -32,27 +34,34 @@ public class JsonDb<T> {
 
     }
 
-    private void OpenOrCreateAndOpenFile(String resourcesPath) throws IOException {
+    private void OpenOrCreateAndOpenFile(String resourcesPath) throws RepositoryNotAvailable {
         var fullResourcePath = "file:src/main/resources/"+resourcesPath+".json";
         try{
             this.file = ResourceUtils.getFile(fullResourcePath);
             if (!this.file.exists())createFile();
         } catch (FileNotFoundException e) {
-            this.file = new File(ResourceUtils.getURL(fullResourcePath).getPath());
+            try{
+                this.file = new File(ResourceUtils.getURL(fullResourcePath).getPath());
+            }catch (IOException ioException){
+                throw  new RepositoryNotAvailable(ioException.getMessage());
+            }
             createFile();
         }
 
     }
 
-    private void createFile() throws IOException {
-
-            this.file.createNewFile();
-            update(new ArrayList<T>());
+    private void createFile() throws RepositoryNotAvailable {
+            try{
+                this.file.createNewFile();
+                update(new ArrayList<T>());
+            }catch (IOException e){
+                throw  new RepositoryNotAvailable(e.getMessage());
+            }
 
     }
 
 
-    public List<T> retrieve() throws Exception {
+    public List<T> retrieve() throws RepositoryNotAvailable {
         try {
             return mapper.<List<T>>readValue(file,typeRef);
         } catch (IOException e) {
@@ -60,18 +69,23 @@ public class JsonDb<T> {
                 return mapper.readValue(file,typeRef);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
-                throw new Exception("database unavailable");
+                throw new RepositoryNotAvailable("database unavailable");
             }
         }
     }
 
-    public boolean update(List<T> data) throws IOException {
-        FileWriter f2 = new FileWriter(file, false);
-        var jsonOrder = mapper.writeValueAsString(data);
-        System.out.println(jsonOrder);
-        f2.write(jsonOrder);
-        f2.flush();
-        f2.close();
-        return true;
+    public boolean update(List<T> data) throws RepositoryNotAvailable {
+        try {
+            FileWriter f2 = new FileWriter(file, false);
+            var jsonOrder = mapper.writeValueAsString(data);
+            System.out.println(jsonOrder);
+            f2.write(jsonOrder);
+            f2.flush();
+            f2.close();
+            return true;
+        }catch (IOException e){
+            e.printStackTrace();
+            throw new RepositoryNotAvailable(e.getMessage());
+        }
     }
 }

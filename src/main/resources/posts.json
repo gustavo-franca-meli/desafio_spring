@@ -223,5 +223,35 @@
     },
     "category": 100,
     "price": 1500.5
+  },
+  {
+    "id": "41096fb7-62f8-4f58-b183-0053f3dbec38",
+    "userId": "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
+    "postedAt": "2021-06-02T16:59:30.912206",
+    "product": {
+      "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+      "name": "Cadeira Gamer",
+      "type": "Gamer",
+      "brand": "Racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.5
+  },
+  {
+    "id": "41096fb7-62f8-4f58-b183-0053f3dbec39",
+    "userId": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+    "postedAt": "2021-06-02T17:00:05.313551",
+    "product": {
+      "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+      "name": "Cadeira Gamer",
+      "type": "Gamer",
+      "brand": "Racer",
+      "color": "Red & Black",
+      "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.5
   }
 ]

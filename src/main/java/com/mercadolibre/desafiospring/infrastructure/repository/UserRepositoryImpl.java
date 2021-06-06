@@ -2,6 +2,7 @@ package com.mercadolibre.desafiospring.infrastructure.repository;
 
 import com.mercadolibre.desafiospring.domain.Seller;
 import com.mercadolibre.desafiospring.domain.User;
+import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
 import com.mercadolibre.desafiospring.infrastructure.UserRepository;
 import com.mercadolibre.desafiospring.infrastructure.database.JsonDb;
 import com.mercadolibre.desafiospring.infrastructure.entity.UserData;
@@ -16,14 +17,14 @@ import java.util.stream.Collectors;
 @Repository
 public class UserRepositoryImpl extends JsonDb<UserData> implements UserRepository {
     private static  TypeReference<List<UserData>> typeRef = new TypeReference<>(){};
-    public UserRepositoryImpl() throws Exception {
+    public UserRepositoryImpl() throws RepositoryNotAvailable {
         super("user",typeRef);
 
 
     }
 
     @Override
-    public Boolean exist(User user) throws Exception {
+    public Boolean exist(User user) throws RepositoryNotAvailable {
         List<UserData> users = this.retrieve();
 
         if(users == null)return false;
@@ -45,7 +46,7 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
 
 
     @Override
-    public Boolean save(User user) throws Exception {
+    public Boolean save(User user) throws RepositoryNotAvailable {
         var users = this.retrieve();
         var data = UserMapper.toData(user);
         var userDataDBOp = users.stream().filter(userData -> userData.getId().equals(data.getId())).findFirst();
@@ -60,7 +61,7 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
     }
 
     @Override
-    public List<User> findAllFollowers(Seller seller) throws Exception {
+    public List<User> findAllFollowers(Seller seller) throws RepositoryNotAvailable {
         var users = this.retrieve();
 
         return users.stream()
@@ -78,7 +79,7 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
     }
 
     @Override
-    public List<User> findAllFollowing(User user) throws Exception {
+    public List<User> findAllFollowing(User user) throws RepositoryNotAvailable {
         var users = this.retrieve();
 
         return users.stream()

@@ -1,9 +1,10 @@
 package com.mercadolibre.desafiospring.aplication.useCase;
 
+import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
+import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyUnfollowingException;
 import com.mercadolibre.desafiospring.aplication.response.FollowersCountResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowersListResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowingListResponse;
-import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyFollowingException;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 
 public interface UserUseCase {
@@ -14,4 +15,6 @@ public interface UserUseCase {
     FollowersListResponse followersList(String userId) throws Exception;
 
     FollowingListResponse followingList(String userId) throws Exception;
+
+    void unfollow(String userId, String userIdToUnfollow) throws UserNotFound, UserIsAlreadyUnfollowingException, IllegalArgumentException, RepositoryNotAvailable;
 }
