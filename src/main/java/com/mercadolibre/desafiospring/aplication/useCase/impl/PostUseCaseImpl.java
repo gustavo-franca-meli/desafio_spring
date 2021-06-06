@@ -1,6 +1,7 @@
 package com.mercadolibre.desafiospring.aplication.useCase.impl;
 
 import com.mercadolibre.desafiospring.aplication.requests.CreatePostRequest;
+import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
 import com.mercadolibre.desafiospring.aplication.response.PostResponseMapper;
 import com.mercadolibre.desafiospring.aplication.useCase.PostUseCase;
@@ -14,6 +15,7 @@ import com.mercadolibre.desafiospring.infrastructure.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,11 +38,12 @@ public class PostUseCaseImpl  implements PostUseCase {
         throw new IllegalArgumentException("post Already Exist");
     }
 
+
     @Override
-    public PostsResponse listFollowedBy(String userId) throws UserNotFound {
+    public PostsResponse listFollowedBy(String userId, Optional<OrderPost> order) throws UserNotFound {
         var user  = userRepository.find(UserFactory.create(userId));
         if(user == null)throw new UserNotFound(userId);
-        var listOfPosts = postRepository.listFollowedBy(user);
+        var listOfPosts = postRepository.listFollowedBy(user,order);
         var listOfPostResponse = listOfPosts.stream().map(PostResponseMapper::make).collect(Collectors.toList());
         return new PostsResponse(user.getId(),listOfPostResponse);
     }

@@ -1,12 +1,15 @@
 package com.mercadolibre.desafiospring.aplication.controller;
 
 import com.mercadolibre.desafiospring.aplication.requests.CreatePostRequest;
+import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
 import com.mercadolibre.desafiospring.aplication.useCase.PostUseCase;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.*;
 
@@ -26,8 +29,8 @@ public class PostController {
         return status(HttpStatus.CREATED).build();
     }
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostsResponse> listFollowedPost(@PathVariable String userId) throws UserNotFound {
-        var response = postUseCase.listFollowedBy(userId);
+    public ResponseEntity<PostsResponse> listFollowedPost(@PathVariable String userId, @RequestParam("order") Optional<OrderPost> order) throws UserNotFound {
+        var response = postUseCase.listFollowedBy(userId,order);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
