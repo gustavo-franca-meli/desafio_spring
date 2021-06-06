@@ -1,6 +1,7 @@
 package com.mercadolibre.desafiospring.aplication.ExceptionHandlers;
 
 import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyFollowingException;
+import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyUnfollowingException;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import com.sun.jdi.connect.VMStartException;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,10 @@ public class StandardHandler {
 
     @ExceptionHandler(UserIsAlreadyFollowingException.class)
     public ResponseEntity<Void> userIsAlReadyFollowing(UserIsAlreadyFollowingException e){
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+    @ExceptionHandler(UserIsAlreadyUnfollowingException.class)
+    public ResponseEntity<Void> userIsAlReadyUnfollowing(UserIsAlreadyUnfollowingException e){
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
     @ExceptionHandler(UserNotFound.class)

@@ -4,7 +4,10 @@ import com.mercadolibre.desafiospring.aplication.response.FollowersCountResponse
 import com.mercadolibre.desafiospring.aplication.response.FollowersListResponse;
 import com.mercadolibre.desafiospring.aplication.response.FollowingListResponse;
 import com.mercadolibre.desafiospring.aplication.useCase.UserUseCase;
+import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
 import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyFollowingException;
+import com.mercadolibre.desafiospring.domain.exception.UserIsAlreadyUnfollowingException;
+import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +41,10 @@ public class FollowController {
     public ResponseEntity<FollowersListResponse> followersList(@PathVariable String userId) throws Exception, UserIsAlreadyFollowingException {
         var response = userUseCase.followersList(userId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+    @PostMapping("/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<Void> unfollow(@PathVariable String userId, @PathVariable String userIdToUnfollow) throws UserNotFound, UserIsAlreadyUnfollowingException, RepositoryNotAvailable {
+        userUseCase.unfollow(userId,userIdToUnfollow);
+        return ResponseEntity.ok().build();
     }
 }

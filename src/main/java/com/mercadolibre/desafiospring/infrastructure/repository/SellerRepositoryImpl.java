@@ -2,6 +2,7 @@ package com.mercadolibre.desafiospring.infrastructure.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.mercadolibre.desafiospring.domain.Seller;
+import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
 import com.mercadolibre.desafiospring.infrastructure.SellerRepository;
 import com.mercadolibre.desafiospring.infrastructure.database.JsonDb;
 import com.mercadolibre.desafiospring.infrastructure.entity.UserData;
@@ -15,7 +16,7 @@ import java.util.List;
 @Repository
 public class SellerRepositoryImpl extends JsonDb<UserData> implements SellerRepository {
     private static  TypeReference<List<UserData>> typeRef = new TypeReference<>(){};
-    public SellerRepositoryImpl() throws IOException {
+    public SellerRepositoryImpl() throws RepositoryNotAvailable {
         super("user", typeRef);
     }
 
@@ -33,7 +34,7 @@ public class SellerRepositoryImpl extends JsonDb<UserData> implements SellerRepo
     }
 
     @Override
-    public Boolean save(Seller user) throws Exception {
+    public Boolean save(Seller user) throws RepositoryNotAvailable {
         var users = this.retrieve();
         var data = SellerMapper.toData(user);
         users.removeIf(userData -> userData.getId().equals(data.getId()));

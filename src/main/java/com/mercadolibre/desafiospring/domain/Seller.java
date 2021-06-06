@@ -23,8 +23,8 @@ public class Seller extends User{
         return followers;
     }
 
-    public void removeFollower(User user) {
-        this.followers.remove(user);
+    public boolean removeFollower(User user) {
+        return this.followers.removeIf(f -> f.getId().equals(user.getId()));
     }
 
     public Boolean addFollower(User user) {

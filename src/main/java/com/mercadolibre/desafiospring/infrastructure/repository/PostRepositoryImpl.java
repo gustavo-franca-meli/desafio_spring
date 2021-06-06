@@ -3,6 +3,7 @@ package com.mercadolibre.desafiospring.infrastructure.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.mercadolibre.desafiospring.domain.Post;
 import com.mercadolibre.desafiospring.domain.User;
+import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
 import com.mercadolibre.desafiospring.infrastructure.PostRepository;
 import com.mercadolibre.desafiospring.infrastructure.database.JsonDb;
 import com.mercadolibre.desafiospring.infrastructure.entity.PostData;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Repository
 public class PostRepositoryImpl extends JsonDb<PostData> implements PostRepository  {
     private static  TypeReference<List<PostData>> typeRef = new TypeReference<>(){};
-    public PostRepositoryImpl() throws IOException {
+    public PostRepositoryImpl() throws RepositoryNotAvailable {
         super("posts", typeRef);
     }
 
@@ -45,7 +46,7 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
         try {
             var posts = this.retrieve();
             var followingSellerList = user.getFollowing();
-            var maxDate = LocalDateTime.now().plusWeeks(-2);
+            var maxDate = LocalDateTime.now().minusWeeks(2);
 
 
             var postsFollowed = posts.stream().filter(p -> p.getPostedAt().compareTo(maxDate) > -1 && followingSellerList.stream()
@@ -54,7 +55,6 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
                             )
                     )
             ).collect(Collectors.toList());
-
             return postsFollowed.stream().sorted(Comparator.comparing(PostData::getPostedAt, Collections.reverseOrder()))
                     .map(PostMapper::toModel)
                     .collect(Collectors.toList());

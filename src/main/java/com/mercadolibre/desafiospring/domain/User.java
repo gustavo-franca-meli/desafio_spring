@@ -45,17 +45,21 @@ public class User {
             var isFollowing = this.following.stream().anyMatch(u -> u.getId().equals(sellerToFollow.getId()));
             if (isFollowing) return false;
             if (!sellerToFollow.addFollower(this)) return false;
-            following.add(sellerToFollow);
-            return true;
+            return following.add(sellerToFollow);
         } catch (Exception e) {
-            sellerToFollow.removeFollower(this);
-            unFollow(sellerToFollow);
+            unfollow(sellerToFollow);
             return false;
         }
     }
 
-    public void unFollow(Seller userToUnFollow) {
-        this.following.remove(userToUnFollow);
+    public boolean unfollow(Seller sellerToUnFollow) {
+        var itIsI = sellerToUnFollow.getId().equals(this.getId());
+        if(itIsI)return false;
+
+        var isFollowing = this.following.stream().anyMatch(u -> u.getId().equals(sellerToUnFollow.getId()));
+        if (!isFollowing) return false;
+        if(!sellerToUnFollow.removeFollower(this))return  false;
+        return this.following.removeIf(f -> f.getId().equals(sellerToUnFollow.getId()));
     }
 
 }
