@@ -58,6 +58,7 @@ public class UserRepositoryImpl extends JsonDb<UserData> implements UserReposito
         if(userDataDBOp.isPresent()){
             var userData = userDataDBOp.get();
             data.setFollowers(userData.getFollowers());
+            data.setSeller(userData.getSeller());
             users.remove(userData);
         }
         users.add(data);
