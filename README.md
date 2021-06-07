@@ -226,10 +226,81 @@ Paramêtros De retorno :
 | followed | List<Seller> | lista de vendedores que o usuário segue |
 
 
-Para mais informações sobre o código acessa a issue #5
+Para mais informações sobre o código acessa a issue #6
 
-### US0006 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+### US0006 - Obter uma lista das publicações feitas pelos vendedores que um usuário segue nas últimas duas semanas (para isso, ter em conta ordenação por data, a maioria das publicações recentes primeiro).
 
+```
+GET /products/followed/{userId}/list
+```
+Parametros:
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o usuário |
+
+Retorno :
+
+```json
+{
+    "userId": "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
+    "posts": [
+        {
+            "userId": "41096fb7-62f8-4f58-b183-053f3dbec325",
+            "idPost": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+            "detail": {
+                "productId": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+                "productName": "Cadeira Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red & Black",
+                "notes": "Special Edition"
+            },
+            "postedAt": "2021-06-02T15:32:08.795233",
+            "category": 100,
+            "price": 1500.5
+        },
+        {
+            "userId": "41096fb7-62f8-4f58-b183-053f3dbec324",
+            "idPost": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+            "detail": {
+                "productId": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+                "productName": "Cadeira Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red & Black",
+                "notes": "Special Edition"
+            },
+            "postedAt": "2021-06-02T15:32:03.001853",
+            "category": 100,
+            "price": 1500.5
+        },
+        {
+            "userId": "41096fb7-62f8-4f58-b183-053f3dbec316",
+            "idPost": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+            "detail": {
+                "productId": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+                "productName": "Cadeira Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red & Black",
+                "notes": "Special Edition"
+            },
+            "postedAt": "2021-06-02T15:28:08.810266",
+            "category": 100,
+            "price": 1500.5
+        }
+]
+}
+````
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 200 | OK | sucesso na requisição retornando o  json |
+| 400 | BAD REQUEST | UUID mal formatado |
+| 404 | NOT_FOUND | usuário não encontrado |
+
+Para mais informações sobre o código acessa a issue #9
 ### US0007 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
 
 ### US0008 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
