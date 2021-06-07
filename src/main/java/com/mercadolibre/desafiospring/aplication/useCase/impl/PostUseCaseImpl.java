@@ -3,6 +3,7 @@ package com.mercadolibre.desafiospring.aplication.useCase.impl;
 import com.mercadolibre.desafiospring.aplication.requests.CreatePostRequest;
 import com.mercadolibre.desafiospring.aplication.requests.CreatePromoPostRequest;
 import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
+import com.mercadolibre.desafiospring.aplication.response.CountPromoPostsResponse;
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
 import com.mercadolibre.desafiospring.aplication.response.PostResponseMapper;
 import com.mercadolibre.desafiospring.aplication.useCase.PostUseCase;
@@ -56,5 +57,12 @@ public class PostUseCaseImpl  implements PostUseCase {
         var listOfPosts = postRepository.listFollowedBy(user,order);
         var listOfPostResponse = listOfPosts.stream().map(PostResponseMapper::make).collect(Collectors.toList());
         return new PostsResponse(user.getId(),listOfPostResponse);
+    }
+
+    @Override
+    public CountPromoPostsResponse countPromoPosts(String userId) throws UserNotFound {
+        var user  = sellerRepository.find(SellerFactory.create(userId));
+        if(user == null)throw new UserNotFound(userId);
+        return new CountPromoPostsResponse(user.getId(),user.getName(),postRepository.countPromoPost(user));
     }
 }
