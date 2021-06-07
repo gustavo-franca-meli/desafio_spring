@@ -7,12 +7,14 @@ O objetivo deste desafio é aplicar os conteúdos dados até o momento durante o
 ```
  git clone git@github.com:gustavo-franca-meli/desafio_spring.git
 ```
-2. rodar o projeto pelo intelij
+2. rodar o projeto pelo IntelliJ IDEA
 
 
 ## Testar as Rotas 
 
-para testar as rotas utilize o workspace do Postman https://www.postman.com/solar-comet-620900/workspace/desafio-spring/overview . já possuei requisições prontas para cada rota
+1. para testar as rotas faça o fork da collection do Postman https://www.postman.com/solar-comet-620900/workspace/desafio-spring/collection/15968976-e00eb065-059a-4429-a678-6a99b9f28c74/fork. já possuei requisições prontas para cada rota.
+2. Faça o Fork do environment para ter as váriaveis do teste https://www.postman.com/solar-comet-620900/workspace/desafio-spring/environment/15968976-372085df-94f8-4bb5-a831-1a06d2622333/fork
+3. use o postman desktop para fazer requisições localhost
 
 ## Casos de Uso 
 
