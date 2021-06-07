@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.domain.Post;
 import com.mercadolibre.desafiospring.domain.PromoPost;
+import com.mercadolibre.desafiospring.domain.Seller;
 import com.mercadolibre.desafiospring.domain.User;
 import com.mercadolibre.desafiospring.domain.exception.RepositoryNotAvailable;
 import com.mercadolibre.desafiospring.infrastructure.PostRepository;
@@ -96,5 +97,21 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
             e.printStackTrace();
         }
         return 0;
+    }
+
+    @Override
+    public List<PromoPost> listPromoPost(Seller user, Optional<OrderPost> order) {
+        try {
+            var posts = this.retrieve();
+
+           var promoPosts =  posts.stream().filter(p -> p.getHasPromo() && p.getUserId().equals(user.getId())).collect(Collectors.toList());
+
+           return promoPosts.stream().sorted(Comparator.comparing(PostData::getPostedAt,order.isPresent() && order.get().equals(OrderPost.date_desc)?Comparator.naturalOrder():Collections.reverseOrder()))
+                   .map(PromoPostMapper::toModel)
+                   .collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

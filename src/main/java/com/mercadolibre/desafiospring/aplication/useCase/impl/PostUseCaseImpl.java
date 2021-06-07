@@ -3,9 +3,7 @@ package com.mercadolibre.desafiospring.aplication.useCase.impl;
 import com.mercadolibre.desafiospring.aplication.requests.CreatePostRequest;
 import com.mercadolibre.desafiospring.aplication.requests.CreatePromoPostRequest;
 import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
-import com.mercadolibre.desafiospring.aplication.response.CountPromoPostsResponse;
-import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
-import com.mercadolibre.desafiospring.aplication.response.PostResponseMapper;
+import com.mercadolibre.desafiospring.aplication.response.*;
 import com.mercadolibre.desafiospring.aplication.useCase.PostUseCase;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import com.mercadolibre.desafiospring.domain.factories.PostFactory;
@@ -65,4 +63,14 @@ public class PostUseCaseImpl  implements PostUseCase {
         if(user == null)throw new UserNotFound(userId);
         return new CountPromoPostsResponse(user.getId(),user.getName(),postRepository.countPromoPost(user));
     }
+
+    @Override
+    public PromoPostsResponse listPromoPost(String userId, Optional<OrderPost> order) throws UserNotFound {
+        var user  = sellerRepository.find(SellerFactory.create(userId));
+        if(user == null)throw new UserNotFound(userId);
+        var listOfPosts = postRepository.listPromoPost(user,order);
+        var listOfPostResponse = listOfPosts.stream().map(PromoPostResponseMapper::make).collect(Collectors.toList());
+        return new PromoPostsResponse(user.getId(),user.getName(),listOfPostResponse);
+    }
+
 }
