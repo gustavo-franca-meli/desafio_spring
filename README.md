@@ -217,14 +217,6 @@ Retorno :
 | 400 | BAD REQUEST | UUID mal formatado ou já existe |
 | 404 | NOT_FOUND | usuário não encontrado |
 
-Paramêtros De retorno :
-
-| Parametro | Tipo | Descrição |
-| ----------- | ---- | --------- |
-| userId | UUID | UUID que identifica o Usuário |
-| userName | String | nome do Usuário |
-| followed | List<Seller> | lista de vendedores que o usuário segue |
-
 
 Para mais informações sobre o código acessa a issue #6
 
@@ -325,12 +317,209 @@ Retorno :
 Para mais informações sobre o código acessa a issue #11
 
 
-### US0008 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+### US0008 - Ordem alfabética crescente e decrescente
+Habilitado em :
+```
+GET
+/users/{UserID}/followers/list
+/users/{UserID}/followed/list
+```
 
-### US0009 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+GET Exemplos:
+```
+/users/{UserID}/followers/list?order=name_asc
+/users/{UserID}/followers/list?order=name_desc
+/users/{UserID}/followed/list?order=name_asc
+/users/{UserID}/followed/list?order=name_desc
+```
+Parametros da Query :
 
-### US0010 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+| Tipo | Valor | Descrição |
+| ----------- | ---- | --------- |
+| order | name_asc |  Alfabético crescente |
+| order | name_desc |  Alfabético decrescente |
 
-### US0011 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+Para mais informações sobre o código acessa a issue #13
 
-### US0012 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+### US0009 - Classificar por data crescente e decrescente
+
+Habilitado em :
+```
+GET
+/products/followed/{userId}/list
+/products/{sellerId}/list
+```
+
+GET Exemplos:
+```
+/products/followed/{userId}/list?order=date_asc
+/products/followed/{userId}/list?order=date_desc
+/products/{sellerId}/list?order=date_asc
+/products/{sellerId}/list?order=date_desc
+```
+Parametros da Query:
+
+| Tipo | Valor | Descrição |
+| ----------- | ---- | --------- |
+| order | date_asc |   crescente (do mais antigo para o mais novo |
+| order | date_desc |  decrescente (do mais novo ao mais antigo |
+
+Para mais informações sobre o código acessa a issue #15
+
+### US0010 - Realizar a publicação de um novo produto promocional
+
+```
+POST /products/newpromopost
+```
+Exemplo de Corpo do Envio :
+
+```json
+{
+"userId": "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
+"idPost" : "41096fb7-62f8-4f58-b183-53f3dbec40",
+"detail":{
+    "productId" : "b4c40a44-3c57-465d-b173-2f70665b35ee",
+    "productName" : "Cadeira Gamer",
+    "type" : "Gamer",
+    "brand" : "Racer",
+    "color" : "Red & Black",
+    "notes" : "Special Edition"
+},
+"category" : 100,
+"price" : 1500.50,
+"discount" : 0.25
+}
+
+```
+Parametros:
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o usuário |
+| idPost | UUID | UUID que identifica o post |
+| detail | Produto | dados do produto |
+| productId | UUID | UUID de identificação de cada um dos produtos associados a uma publicação |
+| productName | String | Sequência de caracteres que representa o nome de um produto|
+| type | String | Sequência de caracteres que representa o tipo de um produto |
+| brand | String | Sequência de caracteres que representa a marca de um produto |
+| color | String | Sequência de caracteres que representa a cor de um produto |
+| notes | String | Sequência de caracteres para colocar notas ou observações de um produto |
+| category | Integer | Identificador usado para saber a categoria à qual um produto pertence. Por exemplo: 100: cadeiras, 58: teclados |
+| price | Double | Preço do produto |
+| discount | Double | Caso um produto esteja em promoção, defina o valor do desconto |
+
+Retorno :
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 201 | CREATED | sucesso na criação|
+| 400 | BAD REQUEST | UUID mal formatado ou já existe |
+| 404 | NOT_FOUND | vendedor não encontrado |
+
+
+
+obs : Data automaticamente inclusa ao gerar o post , por isso não precisa ser passada pela request.
+
+Para mais informações sobre o código acessa a issue #17
+
+
+### US0011 - Obtenha o quantidade de produtos promocionais de um vendedor específico
+```
+GET /products/{userId}/countPromo/
+```
+Retorno :
+```json
+{
+"userId" : 1569,
+"userName": "vendedor1",
+"promoProductsCount": 23
+}
+```
+
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 201 | CREATED | sucesso na criação|
+| 400 | BAD REQUEST | UUID mal formatado ou já existe |
+| 404 | NOT_FOUND | vendedor não encontrado |
+
+
+Paramêtros De retorno :
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o Usuário |
+| userName | String | nome do Usuário |
+| promoProductsCount | Integer | Quantidade numérica de produtos em promoção de deter minado usuário. |
+
+Para mais informações sobre o código acessa a issue #18
+
+### US0012 - Obter uma lista de todos os produtos promocionais de um vendedor específico
+
+```
+GET /products/{sellerId}/list/
+```
+
+Parametros:
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| sellerId | UUID | UUID que identifica o vendedor |
+
+Retorno :
+```json 
+{
+    "userId": 1569,
+    "userName": "vendedor1",
+    "posts": [
+        {
+            "id_post": 18,
+            "date": "29-04-2021",
+            "detail": {
+                "product_id": 1,
+                "productName": "Silla Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red & Black",
+                "notes": "Special Edition"
+            },
+            "category": "100",
+            "price": 15000.50,
+            "discount": 0.25
+        },
+        {
+            "id_post": 32,
+            "date": "01-05-2021",
+            "detail": {
+                "product_id": 62,
+                "productName": "Headset RGB Inalámbrico",
+                "type": "Gamer",
+                "brand": "Razer",
+                "color": "Green with RGB",
+                "notes": "Sin Batería"
+            },
+            "category": "120",
+            "price": 2800.69,
+            "discount": 0.10
+        }
+    ]
+}
+```
+
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 200 | OK | sucesso na requisição retornando o  json |
+| 400 | BAD REQUEST | UUID mal formatado |
+| 404 | NOT_FOUND | vendedor não encontrado |
+
+Paramêtros De retorno :
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o Usuário |
+| userName | String | nome do Usuário |
+| post | List<Post> | lista de vendedores que o usuário segue |
+
+
+Para mais informações sobre o código acessa a issue #19
