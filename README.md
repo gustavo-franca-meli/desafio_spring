@@ -167,8 +167,66 @@ Paramêtros De retorno :
 
 Para mais informações sobre o código acessa a issue #5
 
-### US0005 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+### US0005 - Cadastrar uma nova publicação
 
+```
+POST /products/newpost/
+```
+
+Exemplo de Corpo do Envio : 
+````json
+{
+"userId": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+"idPost" : "41096fb7-62f8-4f58-b183-53f3dbec50",
+"detail":{
+    "productId" : "b4c40a44-3c57-465d-b173-2f70665b35ee",
+    "productName" : "Cadeira Gamer",
+    "type" : "Gamer",
+    "brand" : "Racer",
+    "color" : "Red & Black",
+    "notes" : "Special Edition"
+},
+"category" : 100,
+"price" : 1500.50
+}
+
+
+
+````
+Parametros:
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o usuário |
+| idPost | UUID | UUID que identifica o post |
+| detail | Produto | dados do produto |
+| productId | UUID | UUID de identificação de cada um dos produtos associados a uma publicação |
+| productName | String | Sequência de caracteres que representa o nome de um produto|
+| type | String | Sequência de caracteres que representa o tipo de um produto |
+| brand | String | Sequência de caracteres que representa a marca de um produto |
+| color | String | Sequência de caracteres que representa a cor de um produto |
+| notes | String | Sequência de caracteres para colocar notas ou observações de um produto |
+| category | Integer | Identificador usado para saber a categoria à qual um produto pertence. Por exemplo: 100: cadeiras, 58: teclados |
+| price | Double | Preço do produto |
+
+Retorno :
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 201 | CREATED | sucesso na criação|
+| 400 | BAD REQUEST | UUID mal formatado ou já existe |
+| 404 | NOT_FOUND | usuário não encontrado |
+
+Paramêtros De retorno :
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o Usuário |
+| userName | String | nome do Usuário |
+| followed | List<Seller> | lista de vendedores que o usuário segue |
+
+
+Para mais informações sobre o código acessa a issue #5
 
 ### US0006 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
 
