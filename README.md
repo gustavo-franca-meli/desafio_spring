@@ -12,7 +12,7 @@ O objetivo deste desafio é aplicar os conteúdos dados até o momento durante o
 
 ## Testar as Rotas 
 
-para testar as rotas utilize o workspace do Postman https://www.postman.com/solar-comet-620900/workspace/desafio-spring/overview . já possuei requisições prontas para cada rota
+para testar as rotas faça o fork da collection do Postman https://www.postman.com/solar-comet-620900/workspace/desafio-spring/collection/15968976-e00eb065-059a-4429-a678-6a99b9f28c74/fork. já possuei requisições prontas para cada rota.
 
 ## Casos de Uso 
 
