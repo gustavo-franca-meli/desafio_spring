@@ -73,7 +73,56 @@ Paramêtros De retorno :
 Para mais informações sobre o código acessa a issue #3
  
 
-### US0003 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+### US0003 - Obter uma lista de todos os usuários que seguem um determinado vendedor (quem me segue?)
+
+```
+GET /users/{{userID}}/followers/list
+```
+Parametros:
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o vendedor) |
+
+Retorno :
+
+````json
+{
+  "userId": "b4c40a44-3c57-465d-b173-2f70665b35ee",
+  "userName": "seller3",
+  "followers": [
+    {
+      "userId": "ed25f504-569f-4300-944b-e19484f55f28",
+      "userName": "user3"
+    },
+    {
+      "userId": "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
+      "userName": "seller4"
+    },
+    {
+      "userId": "d313bf73-cc50-403e-a63c-ccb7a0ffc7a7",
+      "userName": "user4"
+    }
+  ]
+}
+````
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 200 | OK | sucesso na requisição retornando o  json |
+| 400 | BAD REQUEST | UUID mal formatado |
+| 404 | NOT_FOUND | vendedor não encontrado |
+
+Paramêtros De retorno :
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o Usuário |
+| userName | String | nome do Usuário |
+| followers | List<User> | lista de usuário que seguem o vendedor |
+
+
+Para mais informações sobre o código acessa a issue #4
 
 ### US0004 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
 
