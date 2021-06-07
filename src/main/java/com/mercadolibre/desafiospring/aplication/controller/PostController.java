@@ -5,6 +5,7 @@ import com.mercadolibre.desafiospring.aplication.requests.CreatePromoPostRequest
 import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.aplication.response.CountPromoPostsResponse;
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
+import com.mercadolibre.desafiospring.aplication.response.PromoPostsResponse;
 import com.mercadolibre.desafiospring.aplication.useCase.PostUseCase;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,12 @@ public class PostController {
     @GetMapping("/{userId}/countPromo")
     public ResponseEntity<CountPromoPostsResponse> countPromoPosts(@PathVariable String userId) throws UserNotFound {
         var response = postUseCase.countPromoPosts(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<PromoPostsResponse> listPromoPostOfUser(@PathVariable String userId, @RequestParam("order") Optional<OrderPost> order) throws UserNotFound {
+        var response = postUseCase.listPromoPost(userId,order);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

@@ -5,8 +5,8 @@ import com.mercadolibre.desafiospring.aplication.requests.CreatePromoPostRequest
 import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.aplication.response.CountPromoPostsResponse;
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
+import com.mercadolibre.desafiospring.aplication.response.PromoPostsResponse;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
-import org.springframework.http.ResponseEntity;
 
 import java.util.Optional;
 
@@ -17,4 +17,6 @@ public interface PostUseCase {
     PostsResponse listFollowedBy(String userId, Optional<OrderPost> order) throws UserNotFound;
 
     CountPromoPostsResponse countPromoPosts(String userId) throws UserNotFound;
+
+   PromoPostsResponse listPromoPost(String userId, Optional<OrderPost> order) throws UserNotFound;
 }

@@ -5,6 +5,7 @@ import com.mercadolibre.desafiospring.aplication.response.CountPromoPostsRespons
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
 import com.mercadolibre.desafiospring.domain.Post;
 import com.mercadolibre.desafiospring.domain.PromoPost;
+import com.mercadolibre.desafiospring.domain.Seller;
 import com.mercadolibre.desafiospring.domain.User;
 import org.springframework.http.ResponseEntity;
 
@@ -20,4 +21,6 @@ public interface PostRepository {
     List<Post> listFollowedBy(User user, Optional<OrderPost> order);
 
     Integer countPromoPost(User user);
+
+    List<PromoPost> listPromoPost(Seller user, Optional<OrderPost> order);
 }
