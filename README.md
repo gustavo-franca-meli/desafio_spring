@@ -9,6 +9,11 @@ O objetivo deste desafio é aplicar os conteúdos dados até o momento durante o
 ```
 2. rodar o projeto pelo intelij
 
+
+## Testar as Rotas 
+
+para testar as rotas utilize o workspace do Postman https://www.postman.com/solar-comet-620900/workspace/desafio-spring/overview . já possuei requisições prontas para cada rota
+
 ## Casos de Uso 
 
 ### US0001 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
@@ -31,6 +36,7 @@ Retorno :
 | 409 | CONFLICT | acontece quando um usuário tenta seguir um vendedor que está seguindo |
 
 Veja a documentação detalhada desta feature aqui [Documentação e exemplos US001](https://documenter.getpostman.com/view/15968976/TzY6AEv4)
+
 
 Para mais informações sobre o código acessa a issue [#2][us0001]
 
@@ -69,6 +75,8 @@ Paramêtros De retorno :
 | userId | UUID | UUID que identifica o vendedor |
 | userName | String | nome do Vendedor |
 | followersCount | Integer | quantidade de Seguidores |
+
+Veja a documentação detalhada desta feature aqui [Documentação e exemplos US002](https://documenter.getpostman.com/view/15968976/TzY6AaAs)
 
 Para mais informações sobre o código acessa a issue [#3][us0002]
  
