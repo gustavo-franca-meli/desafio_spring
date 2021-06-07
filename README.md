@@ -32,7 +32,7 @@ Retorno :
 
 Veja a documentação detalhada desta feature aqui [Documentação e exemplos US001](https://documenter.getpostman.com/view/15968976/TzY6AEv4)
 
-Para mais informações sobre o código acessa a issue #2
+Para mais informações sobre o código acessa a issue [#2][us0001]
 
 ### US0002 - Obter o resultado do número de usuários que seguem um determinado
 vendedor
@@ -70,7 +70,7 @@ Paramêtros De retorno :
 | userName | String | nome do Vendedor |
 | followersCount | Integer | quantidade de Seguidores |
 
-Para mais informações sobre o código acessa a issue #3
+Para mais informações sobre o código acessa a issue [#3][us0002]
  
 
 ### US0003 - Obter uma lista de todos os usuários que seguem um determinado vendedor (quem me segue?)
@@ -122,7 +122,7 @@ Paramêtros De retorno :
 | followers | List<User> | lista de usuário que seguem o vendedor |
 
 
-Para mais informações sobre o código acessa a issue #4
+Para mais informações sobre o código acessa a issue [#4][us0003]
 
 ### US0004 - Obter uma lista de todos os vendedores que um determinado usuário segue (quem estou seguindo?)
 
@@ -165,7 +165,7 @@ Paramêtros De retorno :
 | followed | List<Seller> | lista de vendedores que o usuário segue |
 
 
-Para mais informações sobre o código acessa a issue #5
+Para mais informações sobre o código acessa a issue [#5][us0004]
 
 ### US0005 - Cadastrar uma nova publicação
 
@@ -218,7 +218,7 @@ Retorno :
 | 404 | NOT_FOUND | usuário não encontrado |
 
 
-Para mais informações sobre o código acessa a issue #6
+Para mais informações sobre o código acessa a issue [#6][us0005]
 
 ### US0006 - Obter uma lista das publicações feitas pelos vendedores que um usuário segue nas últimas duas semanas (para isso, ter em conta ordenação por data, a maioria das publicações recentes primeiro).
 
@@ -292,7 +292,7 @@ Retorno :
 | 400 | BAD REQUEST | UUID mal formatado |
 | 404 | NOT_FOUND | usuário não encontrado |
 
-Para mais informações sobre o código acessa a issue #9
+Para mais informações sobre o código acessa a issue [#9][us0006]
 ### US0007 - Ser capaz de realizar a ação de “Deixar de seguir” (parar de seguir) um determinado vendedor.
 ```
 POST /users/{userId}/unfollow/{userIdToUnfollow}
@@ -314,7 +314,7 @@ Retorno :
 | 409 | CONFLICT | acontece quando um usuário tenta deixar de seguir um vendedor que não está seguindo |
 
 
-Para mais informações sobre o código acessa a issue #11
+Para mais informações sobre o código acessa a issue [#11][us0007]
 
 
 ### US0008 - Ordem alfabética crescente e decrescente
@@ -339,7 +339,7 @@ Parametros da Query :
 | order | name_asc |  Alfabético crescente |
 | order | name_desc |  Alfabético decrescente |
 
-Para mais informações sobre o código acessa a issue #13
+Para mais informações sobre o código acessa a issue [#13][us008]
 
 ### US0009 - Classificar por data crescente e decrescente
 
@@ -364,7 +364,7 @@ Parametros da Query:
 | order | date_asc |   crescente (do mais antigo para o mais novo |
 | order | date_desc |  decrescente (do mais novo ao mais antigo |
 
-Para mais informações sobre o código acessa a issue #15
+Para mais informações sobre o código acessa a issue [#15][us0009]
 
 ### US0010 - Realizar a publicação de um novo produto promocional
 
@@ -420,7 +420,7 @@ Retorno :
 
 obs : Data automaticamente inclusa ao gerar o post , por isso não precisa ser passada pela request.
 
-Para mais informações sobre o código acessa a issue #17
+Para mais informações sobre o código acessa a issue [#17][us0010]
 
 
 ### US0011 - Obtenha o quantidade de produtos promocionais de um vendedor específico
@@ -452,7 +452,7 @@ Paramêtros De retorno :
 | userName | String | nome do Usuário |
 | promoProductsCount | Integer | Quantidade numérica de produtos em promoção de deter minado usuário. |
 
-Para mais informações sobre o código acessa a issue #18
+Para mais informações sobre o código acessa a issue [#18][us0011]
 
 ### US0012 - Obter uma lista de todos os produtos promocionais de um vendedor específico
 
@@ -522,4 +522,18 @@ Paramêtros De retorno :
 | post | List<Post> | lista de vendedores que o usuário segue |
 
 
-Para mais informações sobre o código acessa a issue #19
+Para mais informações sobre o código acessa a issue [#19][us0012]
+
+[//]: # (issues)
+[us0001]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/2)
+[us0002]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/3)
+[us0003]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/4)
+[us0004]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/5)
+[us0005]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/6)
+[us0006]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/9)
+[us0007]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/11)
+[us0008]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/13)
+[us0009]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/15)
+[us0010]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/17)
+[us0011]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/18)
+[us0012]:(https://github.com/gustavo-franca-meli/desafio_spring/issues/19)
