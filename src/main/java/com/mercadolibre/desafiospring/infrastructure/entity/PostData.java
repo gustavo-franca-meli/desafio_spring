@@ -1,8 +1,5 @@
 package com.mercadolibre.desafiospring.infrastructure.entity;
 
-import com.mercadolibre.desafiospring.domain.Product;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,6 +10,20 @@ public class PostData {
     private ProductData product;
     private Integer category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
+
+    public void setHasPromo(Boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Boolean getHasPromo() {
+        return hasPromo;
+    }
 
     public PostData() {
     }
@@ -65,12 +76,18 @@ public class PostData {
         this.price = price;
     }
 
-    public PostData(UUID id, UUID userId, LocalDateTime postedAt, ProductData product, Integer category, Double price) {
+    public PostData(UUID id, UUID userId, LocalDateTime postedAt, ProductData product, Integer category, Double price, Boolean hasPromo, Double discount) {
         this.id = id;
         this.userId = userId;
         this.postedAt = postedAt;
         this.product = product;
         this.category = category;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
+    }
+
+    public Double getDiscount() {
+        return discount;
     }
 }

@@ -1,6 +1,7 @@
 package com.mercadolibre.desafiospring.aplication.controller;
 
 import com.mercadolibre.desafiospring.aplication.requests.CreatePostRequest;
+import com.mercadolibre.desafiospring.aplication.requests.CreatePromoPostRequest;
 import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
 import com.mercadolibre.desafiospring.aplication.useCase.PostUseCase;
@@ -32,6 +33,12 @@ public class PostController {
     public ResponseEntity<PostsResponse> listFollowedPost(@PathVariable String userId, @RequestParam("order") Optional<OrderPost> order) throws UserNotFound {
         var response = postUseCase.listFollowedBy(userId,order);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/newpromopost/")
+    public ResponseEntity<Void> createPost(@RequestBody CreatePromoPostRequest post){
+        postUseCase.create(post);
+        return status(HttpStatus.CREATED).build();
     }
 
 }

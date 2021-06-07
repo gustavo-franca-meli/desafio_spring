@@ -12,7 +12,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec312",
@@ -27,7 +29,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec313",
@@ -42,7 +46,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec314",
@@ -57,7 +63,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec315",
@@ -72,7 +80,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec316",
@@ -87,7 +97,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec317",
@@ -102,7 +114,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec321",
@@ -117,7 +131,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec322",
@@ -132,7 +148,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec323",
@@ -147,7 +165,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec324",
@@ -162,7 +182,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-053f3dbec325",
@@ -177,7 +199,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-0053f3dbec34",
@@ -192,7 +216,9 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
     "id": "41096fb7-62f8-4f58-b183-0053f3dbec35",
@@ -207,42 +233,14 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": false,
+    "discount": 0.0
   },
   {
-    "id": "41096fb7-62f8-4f58-b183-0053f3dbec36",
-    "userId": "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
-    "postedAt": "2021-06-02T15:34:05.736979",
-    "product": {
-      "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
-      "name": "Cadeira Gamer",
-      "type": "Gamer",
-      "brand": "Racer",
-      "color": "Red & Black",
-      "notes": "Special Edition"
-    },
-    "category": 100,
-    "price": 1500.5
-  },
-  {
-    "id": "41096fb7-62f8-4f58-b183-0053f3dbec38",
-    "userId": "3a45db9b-a4de-4fe1-8f2f-7345dc603a3b",
-    "postedAt": "2021-06-02T16:59:30.912206",
-    "product": {
-      "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
-      "name": "Cadeira Gamer",
-      "type": "Gamer",
-      "brand": "Racer",
-      "color": "Red & Black",
-      "notes": "Special Edition"
-    },
-    "category": 100,
-    "price": 1500.5
-  },
-  {
-    "id": "41096fb7-62f8-4f58-b183-0053f3dbec39",
+    "id": "41096fb7-62f8-4f58-b183-0053f3dbec40",
     "userId": "b4c40a44-3c57-465d-b173-2f70665b35ee",
-    "postedAt": "2021-06-02T17:00:05.313551",
+    "postedAt": "2021-06-07T09:46:42.673948",
     "product": {
       "id": "b4c40a44-3c57-465d-b173-2f70665b35ee",
       "name": "Cadeira Gamer",
@@ -252,6 +250,8 @@
       "notes": "Special Edition"
     },
     "category": 100,
-    "price": 1500.5
+    "price": 1500.5,
+    "hasPromo": true,
+    "discount": 0.25
   }
 ]

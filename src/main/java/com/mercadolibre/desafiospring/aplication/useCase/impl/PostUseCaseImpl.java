@@ -1,12 +1,14 @@
 package com.mercadolibre.desafiospring.aplication.useCase.impl;
 
 import com.mercadolibre.desafiospring.aplication.requests.CreatePostRequest;
+import com.mercadolibre.desafiospring.aplication.requests.CreatePromoPostRequest;
 import com.mercadolibre.desafiospring.aplication.requests.OrderPost;
 import com.mercadolibre.desafiospring.aplication.response.PostsResponse;
 import com.mercadolibre.desafiospring.aplication.response.PostResponseMapper;
 import com.mercadolibre.desafiospring.aplication.useCase.PostUseCase;
 import com.mercadolibre.desafiospring.domain.exception.UserNotFound;
 import com.mercadolibre.desafiospring.domain.factories.PostFactory;
+import com.mercadolibre.desafiospring.domain.factories.PromoPostFactory;
 import com.mercadolibre.desafiospring.domain.factories.SellerFactory;
 import com.mercadolibre.desafiospring.domain.factories.UserFactory;
 import com.mercadolibre.desafiospring.infrastructure.PostRepository;
@@ -14,7 +16,6 @@ import com.mercadolibre.desafiospring.infrastructure.SellerRepository;
 import com.mercadolibre.desafiospring.infrastructure.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,15 @@ public class PostUseCaseImpl  implements PostUseCase {
     @Override
     public void create(CreatePostRequest postRequest) {
         var post = PostFactory.create(postRequest);
+        var seller = sellerRepository.find(SellerFactory.create(post.getUserId().toString()));
+        if(seller == null)throw new IllegalArgumentException("not found seller");
+        if(postRepository.create(post))return;
+        throw new IllegalArgumentException("post Already Exist");
+    }
+
+    @Override
+    public void create(CreatePromoPostRequest promoPost) {
+        var post = PromoPostFactory.create(promoPost);
         var seller = sellerRepository.find(SellerFactory.create(post.getUserId().toString()));
         if(seller == null)throw new IllegalArgumentException("not found seller");
         if(postRepository.create(post))return;
