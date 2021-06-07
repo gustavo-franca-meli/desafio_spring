@@ -76,7 +76,7 @@ Para mais informações sobre o código acessa a issue #3
 ### US0003 - Obter uma lista de todos os usuários que seguem um determinado vendedor (quem me segue?)
 
 ```
-GET /users/{{userID}}/followers/list
+GET /users/{{sellerId}}/followers/list
 ```
 Parametros:
 
@@ -117,16 +117,58 @@ Paramêtros De retorno :
 
 | Parametro | Tipo | Descrição |
 | ----------- | ---- | --------- |
-| userId | UUID | UUID que identifica o Usuário |
+| sellerId | UUID | UUID que identifica o vendedor |
 | userName | String | nome do Usuário |
 | followers | List<User> | lista de usuário que seguem o vendedor |
 
 
 Para mais informações sobre o código acessa a issue #4
 
-### US0004 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+### US0004 - Obter uma lista de todos os vendedores que um determinado usuário segue (quem estou seguindo?)
+
+```
+GET /users/{{userId}}/followed/list
+```
+Parametros:
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o usuário |
+
+Retorno :
+
+````json
+{
+  "userId": "3aa1cbf6-89ea-4c4b-9a3b-fcff490bc9b6",
+  "userName": "user1",
+  "followed": [
+    {
+      "userId": "2c8efdf8-ea86-44da-93b7-0a1e4486794d",
+      "userName": "seller1"
+    }
+  ]
+}
+````
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 200 | OK | sucesso na requisição retornando o  json |
+| 400 | BAD REQUEST | UUID mal formatado |
+| 404 | NOT_FOUND | usuário não encontrado |
+
+Paramêtros De retorno :
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | UUID que identifica o Usuário |
+| userName | String | nome do Usuário |
+| followed | List<Seller> | lista de vendedores que o usuário segue |
+
+
+Para mais informações sobre o código acessa a issue #5
 
 ### US0005 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+
 
 ### US0006 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
 
