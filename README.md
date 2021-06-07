@@ -301,7 +301,29 @@ Retorno :
 | 404 | NOT_FOUND | usuário não encontrado |
 
 Para mais informações sobre o código acessa a issue #9
-### US0007 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
+### US0007 - Ser capaz de realizar a ação de “Deixar de seguir” (parar de seguir) um determinado vendedor.
+```
+POST /users/{userId}/unfollow/{userIdToUnfollow}
+```
+Parametros:
+
+| Parametro | Tipo | Descrição |
+| ----------- | ---- | --------- |
+| userId | UUID | Número que identifica o usuário atual |
+| userIdToUnfollow | UUID | Número que identifica o usuário a deixar de seguir |
+
+Retorno :
+
+| Código | nome | Descrição |
+| ----------- | ---- | --------- |
+| 200 | OK | Sucesso ao deixar de Seguir Vendedor |
+| 400 | BAD REQUEST | UUID mal formatado |
+| 404 | NOT_FOUND |  vendedor não encontrado ou Usuário não encontrado |
+| 409 | CONFLICT | acontece quando um usuário tenta deixar de seguir um vendedor que não está seguindo |
+
+
+Para mais informações sobre o código acessa a issue #11
+
 
 ### US0008 - Ser capaz de realizar a ação de “Follow” (seguir) a um determinado vendedor
 
