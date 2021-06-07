@@ -1,6 +1,6 @@
 # Desafio-spring
 
-breve descrição sobre o desafio
+O objetivo deste desafio é aplicar os conteúdos dados até o momento durante o Programa de aceleração MeLi (Git, Java e Spring), com a finalidade de poder implementar uma API REST a partir de um enunciado proposto, uma especificação de requisitos e documentação anexada.
 
 ## como rodar o projeto
 1. Clonar o projeto 
