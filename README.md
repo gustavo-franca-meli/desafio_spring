@@ -7,7 +7,7 @@ O objetivo deste desafio é aplicar os conteúdos dados até o momento durante o
 ```
  git clone git@github.com:gustavo-franca-meli/desafio_spring.git
 ```
-2. rodar o projeto pelo intelij
+2. rodar o projeto pelo IntelliJ IDEA
 
 
 ## Testar as Rotas 
