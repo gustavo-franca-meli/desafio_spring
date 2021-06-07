@@ -84,4 +84,17 @@ public class PostRepositoryImpl extends JsonDb<PostData> implements PostReposito
         return null;
 
     }
+
+    @Override
+    public Integer countPromoPost(User user) {
+        try {
+            var posts = this.retrieve();
+
+        return posts.stream().filter(p -> p.getHasPromo() && p.getUserId().equals(user.getId())).collect(Collectors.toList()).size();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
