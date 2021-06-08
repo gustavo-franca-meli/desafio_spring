@@ -1,17 +1,29 @@
 package com.mercadolibre.desafiospring.aplication.requests;
 
-import java.time.LocalDate;
-import java.util.UUID;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 public class CreatePostRequest {
+    @NotEmpty()
     public  String userId;
+    @NotEmpty()
     public  String idPost;
+    @NotNull
+    @Valid
     public ProductRequest detail;
+    @NotNull()
     public Integer category;
+    @NotNull()
     public Double price;
 
 
     public CreatePostRequest() {
+
     }
 
     public CreatePostRequest(String userId, String idPost, ProductRequest detail, Integer category, Double price) {

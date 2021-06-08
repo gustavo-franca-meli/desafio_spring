@@ -1,6 +1,9 @@
 package com.mercadolibre.desafiospring.aplication.requests;
 
+import javax.validation.constraints.NotNull;
+
 public class CreatePromoPostRequest extends CreatePostRequest {
+    @NotNull
     public Double discount;
 
     public CreatePromoPostRequest(Double discount) {
