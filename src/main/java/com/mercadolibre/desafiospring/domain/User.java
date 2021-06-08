@@ -39,16 +39,16 @@ public class User {
         this.name = name;
     }
 
-    public Boolean follow(Seller sellerToFollow) {
+    public Boolean follow(Seller sellerToFollow) throws IllegalArgumentException {
         try {
-            if(sellerToFollow.getId().equals(this.getId()))return false;
+            if(sellerToFollow.getId().equals(this.getId()))throw new IllegalArgumentException("User " + this.getId()+ " not able to follow yourself");
             var isFollowing = this.following.stream().anyMatch(u -> u.getId().equals(sellerToFollow.getId()));
             if (isFollowing) return false;
             if (!sellerToFollow.addFollower(this)) return false;
             return following.add(sellerToFollow);
         } catch (Exception e) {
             unfollow(sellerToFollow);
-            return false;
+            throw  new IllegalArgumentException(e.getMessage());
         }
     }
 

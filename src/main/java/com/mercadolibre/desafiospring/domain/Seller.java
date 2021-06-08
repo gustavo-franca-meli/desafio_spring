@@ -27,8 +27,8 @@ public class Seller extends User{
         return this.followers.removeIf(f -> f.getId().equals(user.getId()));
     }
 
-    public Boolean addFollower(User user) {
-        if(user.getId().equals(this.getId()))return false;
+    public Boolean addFollower(User user) throws IllegalArgumentException {
+        if(user.getId().equals(this.getId()))throw new IllegalArgumentException("User " + this.getId()+ " not able to follow yourself");
         var isAFollower = this.followers.stream().anyMatch(u ->u.getId().equals(user.getId()));
         if(isAFollower)return false;
         this.followers.add(user);
